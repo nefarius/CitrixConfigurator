@@ -42,11 +42,15 @@ namespace CitrixConfigurator
 
         private void bGetString_Click(object sender, EventArgs e)
         {
-            rtbRegValue.Text = RestoreCrippled(rtbRegValue.Text);
-            //tbBinValue.Text = StringToHex(RestoreCrippled(rtbRegValue.Text));
-            //tbBinValue.SelectAll();
+            tbBinValue.Text = StringToHex(RestoreCrippled(rtbRegValue.Text));
+            tbBinValue.SelectAll();
         }
 
+        /// <summary>
+        /// Converts a string to Group Policy compatible hex string.
+        /// </summary>
+        /// <param name="hexstring"></param>
+        /// <returns></returns>
         private string StringToHex(string hexstring)
         {
             var sb = new StringBuilder();
@@ -55,6 +59,11 @@ namespace CitrixConfigurator
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Auto-formats and indents an unformatted XML string.
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <returns></returns>
         private static string IndentXMLString(string xml)
         {
             string outXml = string.Empty;
@@ -86,6 +95,11 @@ namespace CitrixConfigurator
             return sr.ReadToEnd();
         }
 
+        /// <summary>
+        /// Converts the crippled citrix "xml" code to valide xml.
+        /// </summary>
+        /// <param name="crippled"></param>
+        /// <returns></returns>
         private string FixCrippled(string crippled)
         {
             StringBuilder sb = new StringBuilder();
@@ -96,6 +110,11 @@ namespace CitrixConfigurator
             return IndentXMLString(sb.ToString());
         }
 
+        /// <summary>
+        /// Converts valide xml data back to the crippled citrix format.
+        /// </summary>
+        /// <param name="valide"></param>
+        /// <returns></returns>
         private string RestoreCrippled(string valide)
         {
             string crippled = Regex.Replace(valide, @"(<[a-zA-Z\/]*)_([a-zA-Z]*)_([a-zA-Z]*)_?>", @"$1 $2 $3>");
