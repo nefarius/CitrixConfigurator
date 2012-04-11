@@ -117,6 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label1.Text" xml:space="preserve">
+    <value>The current version of the Citrix Online Plug-in stores its main configuration in the registry value HKEY_CURRENTUSER\Software\Citrix\PNAgent\Configuration Model 000 which holds XML-like data as type REG_BINARY. To edit this information in a readable format you have to run this tool on the machine with the Online Plug-in installed. Press the 'Read'-button on the right to parse the currently stored configuration.</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>After clicking the 'Read'-button the registry-stored configuration gets converted into readable indented XML and copied to the textbox below. You can now edit attributes and values as you like but beware to not change the root-tags nor the blob-tags. This would break the validity of the code and cause an error on saving.</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>After you finished making your changes you may hit 'Write back' to overwrite the registry value with your modified version. Make sure you close the Online Plug-in first, then write it back to avoid version mismatches.
+You may like to populate your configuration to your users via logon script, batch one-liners or Group Policy Preferences. Hit the 'Get Hex'-button to get a hex-encoded one-line string from the content above.</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

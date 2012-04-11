@@ -10,6 +10,7 @@ using Microsoft.Win32;
 using System.Xml;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace CitrixConfigurator
 {
@@ -25,19 +26,14 @@ namespace CitrixConfigurator
             key = Registry.CurrentUser.OpenSubKey(@"Software\Citrix\PNAgent");
         }
 
-        private void MainWindow_Load(object sender, EventArgs e)
-        {
-            byte[] bytes = (byte[])key.GetValue(value);
-
-            string content = Encoding.UTF8.GetString(bytes);
-
-            rtbRegValue.Text = FixCrippled(content);
-        }
-
         private void bWrite_Click(object sender, EventArgs e)
         {
-            byte[] bytes = Encoding.UTF8.GetBytes(RestoreCrippled(rtbRegValue.Text));
-            key.SetValue(value, bytes, RegistryValueKind.Binary);
+            if (MessageBox.Show("Write changes back to registry?", "U sure?",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(RestoreCrippled(rtbRegValue.Text));
+                key.SetValue(value, bytes, RegistryValueKind.Binary);
+            }
         }
 
         private void bGetString_Click(object sender, EventArgs e)
@@ -131,6 +127,20 @@ namespace CitrixConfigurator
             while ((m = m.NextMatch()) != Match.Empty);
 
             return Regex.Replace(valide, @"<(\/)?root>\n?", "");
+        }
+
+        private void btnRead_Click(object sender, EventArgs e)
+        {
+            byte[] bytes = (byte[])key.GetValue(value);
+
+            string content = Encoding.UTF8.GetString(bytes);
+
+            rtbRegValue.Text = FixCrippled(content);
+        }
+
+        private void linkLabelAbout_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("http://nefarius.at/");
         }
     }
 }
