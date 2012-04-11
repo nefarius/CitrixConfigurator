@@ -104,7 +104,13 @@ namespace CitrixConfigurator
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<root>");
-            sb.Append(Regex.Replace(crippled, @"(<[\w\/]*) (\w*) ?(\w*>)", @"$1_$2_$3"));
+            Match m = Regex.Match(crippled, @"<[\w\/]* \w* ?\w*>");
+            do
+            {
+                crippled = Regex.Replace(crippled, m.Value, m.Value.Replace(' ', '_'));
+            }
+            while ((m = m.NextMatch()) != Match.Empty);
+            sb.Append(crippled);
             sb.Append("</root>");
 
             return IndentXMLString(sb.ToString());
@@ -117,8 +123,14 @@ namespace CitrixConfigurator
         /// <returns></returns>
         private string RestoreCrippled(string valide)
         {
-            string crippled = Regex.Replace(valide, @"(<[a-zA-Z\/]*)_([a-zA-Z]*)_([a-zA-Z]*)_?>", @"$1 $2 $3>");
-            return Regex.Replace(crippled, @"<(\/)?root>\n?", "");
+            Match m = Regex.Match(valide, @"<[a-zA-Z\/]*_[a-zA-Z]*(_[a-zA-Z]*)?>");
+            do
+            {
+                valide = Regex.Replace(valide, m.Value, m.Value.Replace('_', ' '));
+            }
+            while ((m = m.NextMatch()) != Match.Empty);
+
+            return Regex.Replace(valide, @"<(\/)?root>\n?", "");
         }
     }
 }
