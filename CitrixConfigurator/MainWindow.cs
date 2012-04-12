@@ -131,11 +131,19 @@ namespace CitrixConfigurator
 
         private void btnRead_Click(object sender, EventArgs e)
         {
-            byte[] bytes = (byte[])key.GetValue(value);
+            try
+            {
+                byte[] bytes = (byte[])key.GetValue(value);
 
-            string content = Encoding.UTF8.GetString(bytes);
+                string content = Encoding.UTF8.GetString(bytes);
 
-            rtbRegValue.Text = FixCrippled(content);
+                rtbRegValue.Text = FixCrippled(content);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "An error occured",
+                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void linkLabelAbout_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
