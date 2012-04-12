@@ -23,7 +23,7 @@ namespace CitrixConfigurator
         {
             InitializeComponent();
 
-            key = Registry.CurrentUser.OpenSubKey(@"Software\Citrix\PNAgent");
+            key = Registry.CurrentUser.OpenSubKey(@"Software\Citrix\PNAgent", true);
         }
 
         private void bWrite_Click(object sender, EventArgs e)
