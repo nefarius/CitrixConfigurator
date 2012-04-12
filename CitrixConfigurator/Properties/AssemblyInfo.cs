@@ -7,7 +7,7 @@ using System.Resources;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
 [assembly: AssemblyTitle("CitrixConfigurator")]
-[assembly: AssemblyDescription("Offline configuration tool for the Program Neighbourhood Agent")]
+[assembly: AssemblyDescription("Offline configuration tool for the Program Neighborhood Agent")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("X-Tention GmbH")]
 [assembly: AssemblyProduct("CitrixConfigurator")]

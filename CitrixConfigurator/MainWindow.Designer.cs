@@ -189,7 +189,7 @@
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CitrixConfigurator - Enslave your Program Neighbourhood Agent";
+            this.Text = "CitrixConfigurator - Enslave your Program Neighborhood Agent";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
