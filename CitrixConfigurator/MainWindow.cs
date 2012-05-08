@@ -39,6 +39,7 @@ namespace CitrixConfigurator
         private void bGetString_Click(object sender, EventArgs e)
         {
             tbBinValue.Text = StringToHex(RestoreCrippled(rtbRegValue.Text));
+            tbBinValue.Focus();
             tbBinValue.SelectAll();
         }
 
@@ -119,6 +120,7 @@ namespace CitrixConfigurator
         /// <returns></returns>
         private string RestoreCrippled(string valide)
         {
+            // replace all underscores in tags with spaces
             Match m = Regex.Match(valide, @"<[a-zA-Z\/]*_[a-zA-Z]*(_[a-zA-Z]*)?>");
             do
             {
@@ -126,7 +128,12 @@ namespace CitrixConfigurator
             }
             while ((m = m.NextMatch()) != Match.Empty);
 
-            return Regex.Replace(valide, @"<(\/)?root>\n?", "");
+            // remove the <root> tags and line breaks
+            string oneString = Regex.Replace(valide, @"(<(\/)?root>\n?)|\n|\r\n", string.Empty);
+            // remove all spaces between tags
+            string noSpaces = Regex.Replace(oneString, @"> *<", "><");
+            // remove spaces at start and end of the string
+            return noSpaces.Trim();
         }
 
         private void btnRead_Click(object sender, EventArgs e)
