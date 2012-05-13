@@ -31,14 +31,14 @@ namespace CitrixConfigurator
             if (MessageBox.Show("Write changes back to registry?", "U sure?",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                byte[] bytes = Encoding.UTF8.GetBytes(RestoreCrippled(rtbRegValue.Text));
-                key.SetValue(value, bytes, RegistryValueKind.Binary);
+                //byte[] bytes = Encoding.UTF8.GetBytes(RestoreCrippled(rtbRegValue.Text));
+                //key.SetValue(value, bytes, RegistryValueKind.Binary);
             }
         }
 
         private void bGetString_Click(object sender, EventArgs e)
         {
-            tbBinValue.Text = StringToHex(RestoreCrippled(rtbRegValue.Text));
+            //tbBinValue.Text = StringToHex(RestoreCrippled(rtbRegValue.Text));
             tbBinValue.Focus();
             tbBinValue.SelectAll();
         }
@@ -144,7 +144,108 @@ namespace CitrixConfigurator
 
                 string content = Encoding.UTF8.GetString(bytes);
 
-                rtbRegValue.Text = FixCrippled(content);
+                string valide = FixCrippled(content);
+
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(valide);
+
+                XmlElement root = doc.DocumentElement;
+                XmlNode xmlNode = null;
+
+                #region User Blob
+                // DesktopDisplayEnabled
+                xmlNode = root.SelectSingleNode("//User_Blob/Item[Key='DesktopDisplayEnabled']/Value");
+                if (xmlNode != null)
+                    DesktopDisplayEnabled.Checked = bool.Parse(xmlNode.InnerText);
+
+                // DesktopName
+                xmlNode = root.SelectSingleNode("//User_Blob/Item[Key='DesktopName']/Value");
+                if (xmlNode != null)
+                    DesktopName.Text = xmlNode.InnerText;
+
+                // LogonMethod
+                xmlNode = root.SelectSingleNode("//User_Blob/Item[Key='LogonMethod']/Value");
+                if (xmlNode != null)
+                    LogonMethod.SelectedItem = xmlNode.InnerText;
+
+                // ReconnectFromButtonActive
+                xmlNode = root.SelectSingleNode("//User_Blob/Item[Key='ReconnectFromButtonActive']/Value");
+                if (xmlNode != null)
+                    ReconnectFromButtonActive.Checked = bool.Parse(xmlNode.InnerText);
+
+                // ReconnectFromButtonDisconnected
+                xmlNode = root.SelectSingleNode("//User_Blob/Item[Key='ReconnectFromButtonDisconnected']/Value");
+                if (xmlNode != null)
+                    ReconnectFromButtonDisconnected.Checked = bool.Parse(xmlNode.InnerText);
+
+                // ReconnectFromLogonActive
+                xmlNode = root.SelectSingleNode("//User_Blob/Item[Key='ReconnectFromLogonActive']/Value");
+                if (xmlNode != null)
+                    ReconnectFromLogonActive.Checked = bool.Parse(xmlNode.InnerText);
+
+                // ReconnectFromLogonDisconnected
+                xmlNode = root.SelectSingleNode("//User_Blob/Item[Key='ReconnectFromLogonDisconnected']/Value");
+                if (xmlNode != null)
+                    ReconnectFromLogonDisconnected.Checked = bool.Parse(xmlNode.InnerText);
+
+                // ServerURLEntered
+                xmlNode = root.SelectSingleNode("//User_Blob/Item[Key='ServerURLEntered']/Value");
+                if (xmlNode != null)
+                    ServerURLEntered.Text = xmlNode.InnerText;
+
+                // TODO: ServerURLListUsers
+
+                // StartMenuDisplayEnabled
+                xmlNode = root.SelectSingleNode("//User_Blob/Item[Key='StartMenuDisplayEnabled']/Value");
+                if (xmlNode != null)
+                    StartMenuDisplayEnabled.Checked = bool.Parse(xmlNode.InnerText);
+
+                // StartMenuRoot
+                xmlNode = root.SelectSingleNode("//User_Blob/Item[Key='StartMenuRoot']/Value");
+                if (xmlNode != null)
+                    StartMenuRoot.Text = xmlNode.InnerText;
+
+                // StartMenuDisplayRootFolder
+                xmlNode = root.SelectSingleNode("//User_Blob/Item[Key='StartMenuDisplayRootFolder']/Value");
+                if (xmlNode != null)
+                    StartMenuDisplayRootFolder.Text = xmlNode.InnerText;
+
+                #endregion
+                #region Primary Server Blob
+
+                // DesktopName
+                xmlNode = root.SelectSingleNode("//Primary_Server_Blob/Item[Key='DesktopName']/Value");
+                if (xmlNode != null)
+                    PS_DesktopName.Text = xmlNode.InnerText;
+
+                // DesktopNameModifiable
+                xmlNode = root.SelectSingleNode("//Primary_Server_Blob/Item[Key='DesktopNameModifiable']/Value");
+                if (xmlNode != null)
+                    PS_DesktopNameModifiable.Checked = bool.Parse(xmlNode.InnerText);
+
+                // ServerURL
+                xmlNode = root.SelectSingleNode("//Primary_Server_Blob/Item[Key='ServerURL']/Value");
+                if (xmlNode != null)
+                    PS_ServerURL.Text = xmlNode.InnerText;
+
+                // ServerURLModifiable
+                xmlNode = root.SelectSingleNode("//Primary_Server_Blob/Item[Key='ServerURLModifiable']/Value");
+                if (xmlNode != null)
+                    PS_ServerURLModifiable.Checked = bool.Parse(xmlNode.InnerText);
+
+                // TODO: ServerURLListBackup
+
+                // StartMenuDisplayRootFolder
+                xmlNode = root.SelectSingleNode("//Primary_Server_Blob/Item[Key='StartMenuDisplayRootFolder']/Value");
+                if (xmlNode != null)
+                    PS_StartMenuDisplayRootFolder.Text = xmlNode.InnerText;
+
+                // StartMenuRootFolderModifiable
+                xmlNode = root.SelectSingleNode("//Primary_Server_Blob/Item[Key='StartMenuRootFolderModifiable']/Value");
+                if (xmlNode != null)
+                    PS_StartMenuRootFolderModifiable.Checked = bool.Parse(xmlNode.InnerText);
+
+                #endregion
             }
             catch (Exception ex)
             {
@@ -156,6 +257,11 @@ namespace CitrixConfigurator
         private void linkLabelAbout_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("http://nefarius.at/");
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
