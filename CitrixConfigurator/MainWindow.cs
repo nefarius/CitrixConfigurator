@@ -39,7 +39,7 @@ namespace CitrixConfigurator
 
         private void bGetString_Click(object sender, EventArgs e)
         {
-            //tbBinValue.Text = StringToHex(RestoreCrippled(rtbRegValue.Text));
+            tbBinValue.Text = StringToHex(RestoreCrippled(doc.OuterXml));
             tbBinValue.Focus();
             tbBinValue.SelectAll();
         }
