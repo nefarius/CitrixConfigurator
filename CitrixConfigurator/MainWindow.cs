@@ -27,8 +27,15 @@ namespace CitrixConfigurator
             key = Registry.CurrentUser.OpenSubKey(@"Software\Citrix\PNAgent", true);
         }
 
+        private void ConvertSettings()
+        {
+            // TODO
+        }
+
         private void bWrite_Click(object sender, EventArgs e)
         {
+            ConvertSettings();
+
             if (MessageBox.Show("Write changes back to registry?", "U sure?",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
