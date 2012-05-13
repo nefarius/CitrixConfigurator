@@ -30,6 +30,13 @@ namespace CitrixConfigurator
         private void ConvertSettings()
         {
             // TODO
+            XmlElement root = doc.DocumentElement;
+            XmlNode xmlNode = null;
+
+            // DesktopDisplayEnabled
+            xmlNode = root.SelectSingleNode("//User_Blob/Item[Key='DesktopDisplayEnabled']/Value");
+            if (xmlNode != null)
+                xmlNode.Value = DesktopDisplayEnabled.Checked.ToString();   
         }
 
         private void bWrite_Click(object sender, EventArgs e)
