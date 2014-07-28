@@ -11,6 +11,7 @@ using System.Xml;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Threading;
 
 namespace CitrixConfigurator
 {
@@ -24,6 +25,20 @@ namespace CitrixConfigurator
             InitializeComponent();
 
             key = Registry.CurrentUser.OpenSubKey(@"Software\Citrix\PNAgent", true);
+
+            if (key == null)
+            {
+                gbFetch.Enabled = false;
+                gbConvert.Enabled = false;
+                gbSave.Enabled = false;
+
+                ThreadPool.QueueUserWorkItem(delegate
+                {
+                    MessageBox.Show("The configuration wasn't found in the registry, " +
+                        "do you have the Online Plug-in installed?", "Key not found",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                });
+            }
         }
 
         private void bWrite_Click(object sender, EventArgs e)
@@ -148,7 +163,7 @@ namespace CitrixConfigurator
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "An error occured",
+                MessageBox.Show(ex.Message, "An error occurred",
                   MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
