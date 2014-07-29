@@ -4,6 +4,6 @@ We all know and love (haha) Citrix and their wonderful products like the Citrix 
 
 The Solution
 ============
-My `CitrixConfigurator` extracts the crippled xml-style configuration from the registry, converts it into indented readable xml and writes it back. It can also provide you a reg-compatible hex-string you may deploy via group policy preferences, VB scripts, CMD one-liners or batch files. Any questions left? Just download and start it, it makes your life with Citrix easier :-)
+My `CitrixConfigurator` extracts the crippled xml-style configuration from the registry, converts it into indented readable xml and writes it back. It can also provide you a reg-compatible hex-string you may deploy via group policy preferences, VB scripts, CMD one-liners or batch files. Any questions left? Just download and start it, it makes your life with Citrix easier ![Smily](http://nefarius.at/wp-content/plugins/wp-monalisa/icons/smiley-lol.png "Smily")
 
 ![Main Window](http://www1.xup.to/exec/ximg.php?fid=16960371 "Main Window")
